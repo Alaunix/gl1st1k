@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Регистрация — LovelyMusic</title>
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+#bg-image-register { transition: transform 0.2s ease-out; }
+</style>
+</head>
+
+<body class="relative overflow-hidden bg-gray-200"
+  style="background-image: url('images/your-image.png'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+
+<!-- HEADER -->
+<header class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-6 py-4 
+               bg-white/50 dark:bg-neutral-900/0 backdrop-blur-md transition-colors duration-500">
+  <div class="font-bold text-pink-500 dark:text-sky-400" id="header-title">🎵 LovelyMusic</div>
+
+  <nav class="flex gap-4 text-lg">
+    <a href="index.html" class="hover:opacity-80 nav-text text-pink-500">Главная</a>
+    <a href="index.html#search" class="hover:opacity-80 nav-text text-pink-500">Поиск музыки</a>
+    <a href="index.html#playlist" class="hover:opacity-80 nav-text text-pink-500">Свой плейлист</a>
+    <a href="index.html#downloads" class="hover:opacity-80 nav-text text-pink-500">Скачанное</a>
+    <a href="register.html" class="hover:opacity-80 nav-text text-pink-500">Регистрация</a>
+  </nav>
+
+  <button id="themeToggle" class="text-xl hover:opacity-80 transition">🌙</button>
+</header>
+
+
+<!-- REGISTER FORM -->
+<section class="h-screen w-full flex items-center justify-center relative overflow-hidden pt-16">
+
+  <img id="bg-image-register"
+       src="images/your-music-image.png"
+       alt="фон музыки"
+       class="absolute inset-0 w-full h-full object-contain pointer-events-none">
+
+  <div class="relative z-10 max-w-sm w-full px-6">
+    <div id="registerBox" class="bg-neutral-900 bg-opacity-90 p-6 rounded-lg shadow-lg">
+
+      <h2 class="text-2xl font-bold mb-4 text-center text-pink-500" id="registerTitle">Регистрация</h2>
+
+      <form id="registerForm" class="flex flex-col gap-3">
+        <input type="text" placeholder="Имя" class="px-4 py-2 border border-pink-500 rounded text-pink-500 bg-neutral-800" id="registerName">
+        <input type="email" placeholder="Email" class="px-4 py-2 border border-pink-500 rounded text-pink-500 bg-neutral-800" id="registerEmail">
+        <input type="password" placeholder="Пароль" class="px-4 py-2 border border-pink-500 rounded text-pink-500 bg-neutral-800" id="registerPassword">
+        <button type="submit" class="bg-pink-500 text-white py-2 rounded hover:bg-pink-600" id="registerSubmit">
+          Зарегистрироваться
+        </button>
+      </form>
+
+    </div>
+  </div>
+</section>
+
+
+<script>
+// Theme system replicated
+const themeBtn = document.getElementById("themeToggle");
+const headerTitle = document.getElementById("header-title");
+const navText = document.querySelectorAll(".nav-text");
+const registerTitle = document.getElementById("registerTitle");
+const registerInputs = [
+  document.getElementById("registerName"),
+  document.getElementById("registerEmail"),
+  document.getElementById("registerPassword"),
+  document.getElementById("registerSubmit")
+];
+
+let theme = localStorage.getItem("theme") || "light";
+applyTheme(theme);
+
+themeBtn.addEventListener("click", () => {
+  theme = theme === "light" ? "dark" : "light";
+  localStorage.setItem("theme", theme);
+  applyTheme(theme);
+});
+
+function applyTheme(theme){
+  const body = document.body;
+
+  if(theme === "light"){
+    body.style.backgroundColor = "#ffe6f2";
+    themeBtn.textContent = "🌙";
+
+    [headerTitle, registerTitle].forEach(el=>{
+      el.classList.remove("text-sky-400");
+      el.classList.add("text-pink-500");
+    });
+
+    navText.forEach(el=>{
+      el.classList.remove("text-sky-400");
+      el.classList.add("text-pink-500");
+    });
+
+    registerInputs.forEach(el=>{
+      el.classList.remove("border-sky-400","text-sky-400");
+      el.classList.add("border-pink-500","text-pink-500");
+    });
+
+  } else {
+    body.style.backgroundColor = "#0f172a";
+    themeBtn.textContent = "☀️";
+
+    [headerTitle, registerTitle].forEach(el=>{
+      el.classList.remove("text-pink-500");
+      el.classList.add("text-sky-400");
+    });
+
+    navText.forEach(el=>{
+      el.classList.remove("text-pink-500");
+      el.classList.add("text-sky-400");
+    });
+
+    registerInputs.forEach(el=>{
+      el.classList.remove("border-pink-500","text-pink-500");
+      el.classList.add("border-sky-400","text-sky-400");
+    });
+  }
+}
+
+// Parallax
+const bg = document.getElementById("bg-image-register");
+document.addEventListener("mousemove", e => {
+  const x=(e.clientX-window.innerWidth/2)/60;
+  const y=(e.clientY-window.innerHeight/2)/60;
+  bg.style.transform=`translate(${x}px,${y}px) scale(1.05)`;
+});
+
+// Register
+document.getElementById("registerForm").addEventListener("submit", e=>{
+  e.preventDefault();
+  alert("Регистрация завершена!");
+});
+</script>
+
+</body>
+</html>

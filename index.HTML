@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ru" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LovelyMusic — Главная</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class', // включаем классы для тёмной темы
+      theme: {
+        extend: {
+          colors: {
+            darkblue: '#0f172a' // тёмно-синий фон для тёмной темы
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body id="body" class="bg-pink-50 text-gray-800 transition-colors duration-500">
+
+<!-- HEADER -->
+<header class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-6 py-4 bg-white/50 dark:bg-neutral-900/0 backdrop-blur-md transition-colors duration-500">
+  <div id="site-title" class="font-bold text-pink-500 dark:text-sky-400 transition-colors duration-500">🎵 LovelyMusic</div>
+  <nav class="flex gap-6 text-lg">
+    <a href="index.html" class="nav-link text-pink-500 dark:text-sky-400 hover:opacity-80 transition-colors duration-500">Главная</a>
+    <a href="index.html#search" class="nav-link text-pink-500 dark:text-sky-400 hover:opacity-80 transition-colors duration-500">Поиск музыки</a>
+    <a href="index.html#playlist" class="nav-link text-pink-500 dark:text-sky-400 hover:opacity-80 transition-colors duration-500">Свой плейлист</a>
+    <a href="index.html#downloads" class="nav-link text-pink-500 dark:text-sky-400 hover:opacity-80 transition-colors duration-500">Скачанное</a>
+    <a href="register.html" class="nav-link text-pink-500 dark:text-sky-400 hover:opacity-80 transition-colors duration-500">Регистрация</a>
+  </nav>
+  <button id="themeToggle" class="text-xl hover:opacity-80 transition-colors duration-500">🌙</button>
+</header>
+
+<!-- MAIN HERO -->
+<section class="min-h-screen flex flex-col items-center justify-center text-center px-4 pt-24 transition-colors duration-500">
+  <h1 id="hero-title" class="text-4xl font-bold text-pink-500 dark:text-sky-400 mb-4 transition-colors duration-500">LovelyMusic</h1>
+  <p id="hero-subtitle" class="text-lg text-gray-700 dark:text-sky-300 mb-8 max-w-xl transition-colors duration-500">
+    Твой уютный музыкальный уголок, где можно искать музыку, создавать свой плейлист и просто отдыхать.
+  </p>
+
+  <img src="images/cat.png" alt="котик" class="w-full max-w-md rounded-2xl shadow-xl transition-shadow duration-500">
+</section>
+
+<script>
+const themeBtn = document.getElementById("themeToggle");
+const body = document.getElementById("body");
+
+// Проверяем локальное хранилище
+let theme = localStorage.getItem("theme") || "light";
+applyTheme(theme);
+
+// Переключение темы
+themeBtn.addEventListener("click", () => {
+  theme = theme === "light" ? "dark" : "light";
+  localStorage.setItem("theme", theme);
+  applyTheme(theme);
+});
+
+function applyTheme(theme) {
+  if (theme === "light") {
+    body.classList.remove("dark");
+    body.style.backgroundColor = "#ffe6f2";
+    themeBtn.textContent = "🌙";
+  } else {
+    body.classList.add("dark");
+    body.style.backgroundColor = "#0f172a";
+    themeBtn.textContent = "☀️";
+  }
+}
+</script>
+
+</body>
+</html>
